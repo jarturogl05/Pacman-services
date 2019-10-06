@@ -12,13 +12,12 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class UsuarioSet
+    public partial class Usuario
     {
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public int Jugador_Id { get; set; }
     
-        public virtual JugadorSet JugadorSet { get; set; }
+        public virtual Jugador Jugador { get; set; }
     }
 }

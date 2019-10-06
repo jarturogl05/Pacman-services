@@ -12,18 +12,18 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class RankingSet
+    public partial class Ranking
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RankingSet()
+        public Ranking()
         {
-            this.JugadorSet = new HashSet<JugadorSet>();
+            this.Jugador = new HashSet<Jugador>();
         }
     
         public int Id { get; set; }
-        public string Posición { get; set; }
+        public string Posicion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<JugadorSet> JugadorSet { get; set; }
+        public virtual ICollection<Jugador> Jugador { get; set; }
     }
 }

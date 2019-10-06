@@ -13,10 +13,10 @@ namespace DataAccess
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PacmanDBEntities : DbContext
+    public partial class ModelContainer : DbContext
     {
-        public PacmanDBEntities()
-            : base("name=PacmanDBEntities")
+        public ModelContainer()
+            : base("name=ModelContainer")
         {
         }
     
@@ -25,8 +25,8 @@ namespace DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<JugadorSet> JugadorSet { get; set; }
-        public virtual DbSet<RankingSet> RankingSet { get; set; }
-        public virtual DbSet<UsuarioSet> UsuarioSet { get; set; }
+        public virtual DbSet<Usuario> UsuarioSet { get; set; }
+        public virtual DbSet<Jugador> JugadorSet { get; set; }
+        public virtual DbSet<Ranking> RankingSet { get; set; }
     }
 }
