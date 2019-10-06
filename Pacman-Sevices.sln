@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacman-Sevices", "Pacman-Sevices\Pacman-Sevices.csproj", "{9DD6B908-13AC-41B4-83B0-843C95990DE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacman_Sevices", "Pacman-Sevices\Pacman_Sevices.csproj", "{9DD6B908-13AC-41B4-83B0-843C95990DE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{AF08C28B-52C3-4B7A-8440-C451FCDF1680}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9DD6B908-13AC-41B4-83B0-843C95990DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DD6B908-13AC-41B4-83B0-843C95990DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DD6B908-13AC-41B4-83B0-843C95990DE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF08C28B-52C3-4B7A-8440-C451FCDF1680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF08C28B-52C3-4B7A-8440-C451FCDF1680}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF08C28B-52C3-4B7A-8440-C451FCDF1680}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF08C28B-52C3-4B7A-8440-C451FCDF1680}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

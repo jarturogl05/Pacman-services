@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pac_man_host
+namespace Pacman_Sevices
+
 {
     public class RegisterService : IRegisterService
     {

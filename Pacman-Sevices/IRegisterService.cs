@@ -6,7 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pac_man_host
+namespace Pacman_Sevices
 {
     [ServiceContract]
     public interface IRegisterService
