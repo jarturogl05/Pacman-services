@@ -16,8 +16,17 @@ namespace Pacman_Sevices
             ICollection<Jugador> usuarios = new List<Jugador>
             {
                 new Jugador{
-                    Nombre = jugador.Nombre,  
+                    Nombre = jugador.Nombre,
                     Correo = jugador.Correo,
+                    Elo = "",
+                    PuntuaciónAlta = "",
+                    Puntuación = "",
+                    PantallasGanadas = "",
+
+                    Ranking = new Ranking
+                    {
+                        Posicion = "0"
+                    },
                     Usuario = new Usuario{
                          Username = jugador.Username,
                          Password = jugador.Password
