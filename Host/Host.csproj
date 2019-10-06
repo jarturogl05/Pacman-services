@@ -51,9 +51,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pacman-Sevices\Pacman_Sevices.csproj">
+    <ProjectReference Include="..\Pacman-Sevices\Pacman-Sevices.csproj">
       <Project>{9dd6b908-13ac-41b4-83b0-843c95990de3}</Project>
-      <Name>Pacman_Sevices</Name>
+      <Name>Pacman-Sevices</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
