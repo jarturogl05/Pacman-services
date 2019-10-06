@@ -4,210 +4,201 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PacmanDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="JugadorSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="PuntuaciónAlta" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="PantallasGanadas" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="PartidasGanadas" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Elo" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Puntuación" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Ranking_Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RankingSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Posición" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UsuarioSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Jugador_Id" Type="int" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_JugadorRanking">
-          <End Role="RankingSet" Type="Self.RankingSet" Multiplicity="1" />
-          <End Role="JugadorSet" Type="Self.JugadorSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RankingSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="JugadorSet">
-              <PropertyRef Name="Ranking_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UsuarioJugador">
-          <End Role="JugadorSet" Type="Self.JugadorSet" Multiplicity="1" />
-          <End Role="UsuarioSet" Type="Self.UsuarioSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="JugadorSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UsuarioSet">
-              <PropertyRef Name="Jugador_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="PacmanDBModelStoreContainer">
-          <EntitySet Name="JugadorSet" EntityType="Self.JugadorSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RankingSet" EntityType="Self.RankingSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UsuarioSet" EntityType="Self.UsuarioSet" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_JugadorRanking" Association="Self.FK_JugadorRanking">
-            <End Role="RankingSet" EntitySet="RankingSet" />
-            <End Role="JugadorSet" EntitySet="JugadorSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UsuarioJugador" Association="Self.FK_UsuarioJugador">
-            <End Role="JugadorSet" EntitySet="JugadorSet" />
-            <End Role="UsuarioSet" EntitySet="UsuarioSet" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="UsuarioSet" EntityType="Model.Store.UsuarioSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JugadorSet" EntityType="Model.Store.JugadorSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RankingSet" EntityType="Model.Store.RankingSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UsuarioJugador" Association="Model.Store.UsuarioJugador">
+      <End Role="Usuario" EntitySet="UsuarioSet" />
+      <End Role="Jugador" EntitySet="JugadorSet" />
+    </AssociationSet>
+    <AssociationSet Name="JugadorRanking" Association="Model.Store.JugadorRanking">
+      <End Role="Jugador" EntitySet="JugadorSet" />
+      <End Role="Ranking" EntitySet="RankingSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UsuarioSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Jugador_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JugadorSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PuntuaciónAlta" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Puntuación" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PantallasGanadas" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Elo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ranking_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RankingSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Posicion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="UsuarioJugador">
+    <End Role="Usuario" Type="Model.Store.UsuarioSet" Multiplicity="*" />
+    <End Role="Jugador" Type="Model.Store.JugadorSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Jugador">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="Jugador_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JugadorRanking">
+    <End Role="Jugador" Type="Model.Store.JugadorSet" Multiplicity="*" />
+    <End Role="Ranking" Type="Model.Store.RankingSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Ranking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Jugador">
+        <PropertyRef Name="Ranking_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PacmanDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="JugadorSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Correo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PuntuaciónAlta" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PantallasGanadas" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PartidasGanadas" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Elo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Puntuación" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Ranking_Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="RankingSet" Relationship="Self.FK_JugadorRanking" FromRole="JugadorSet" ToRole="RankingSet" />
-          <NavigationProperty Name="UsuarioSet" Relationship="Self.FK_UsuarioJugador" FromRole="JugadorSet" ToRole="UsuarioSet" />
-        </EntityType>
-        <EntityType Name="RankingSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Posición" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="JugadorSet" Relationship="Self.FK_JugadorRanking" FromRole="RankingSet" ToRole="JugadorSet" />
-        </EntityType>
-        <EntityType Name="UsuarioSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Jugador_Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="JugadorSet" Relationship="Self.FK_UsuarioJugador" FromRole="UsuarioSet" ToRole="JugadorSet" />
-        </EntityType>
-        <Association Name="FK_JugadorRanking">
-          <End Role="RankingSet" Type="Self.RankingSet" Multiplicity="1" />
-          <End Role="JugadorSet" Type="Self.JugadorSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RankingSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="JugadorSet">
-              <PropertyRef Name="Ranking_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UsuarioJugador">
-          <End Role="JugadorSet" Type="Self.JugadorSet" Multiplicity="1" />
-          <End Role="UsuarioSet" Type="Self.UsuarioSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="JugadorSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UsuarioSet">
-              <PropertyRef Name="Jugador_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="PacmanDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="JugadorSet" EntityType="Self.JugadorSet" />
-          <EntitySet Name="RankingSet" EntityType="Self.RankingSet" />
-          <EntitySet Name="UsuarioSet" EntityType="Self.UsuarioSet" />
-          <AssociationSet Name="FK_JugadorRanking" Association="Self.FK_JugadorRanking">
-            <End Role="RankingSet" EntitySet="RankingSet" />
-            <End Role="JugadorSet" EntitySet="JugadorSet" />
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UsuarioSet" EntityType="Model.Usuario" />
+          <EntitySet Name="JugadorSet" EntityType="Model.Jugador" />
+          <EntitySet Name="RankingSet" EntityType="Model.Ranking" />
+          <AssociationSet Name="UsuarioJugador" Association="Model.UsuarioJugador">
+            <End Role="Usuario" EntitySet="UsuarioSet" />
+            <End Role="Jugador" EntitySet="JugadorSet" />
           </AssociationSet>
-          <AssociationSet Name="FK_UsuarioJugador" Association="Self.FK_UsuarioJugador">
-            <End Role="JugadorSet" EntitySet="JugadorSet" />
-            <End Role="UsuarioSet" EntitySet="UsuarioSet" />
+          <AssociationSet Name="JugadorRanking" Association="Model.JugadorRanking">
+            <End Role="Jugador" EntitySet="JugadorSet" />
+            <End Role="Ranking" EntitySet="RankingSet" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <NavigationProperty Name="Jugador" Relationship="Model.UsuarioJugador" FromRole="Usuario" ToRole="Jugador" />
+        </EntityType>
+        <EntityType Name="Jugador">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Correo" Type="String" Nullable="false" />
+          <Property Name="PuntuaciónAlta" Type="String" Nullable="false" />
+          <Property Name="Puntuación" Type="String" Nullable="false" />
+          <Property Name="PantallasGanadas" Type="String" Nullable="false" />
+          <Property Name="Elo" Type="String" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Model.UsuarioJugador" FromRole="Jugador" ToRole="Usuario" />
+          <NavigationProperty Name="Ranking" Relationship="Model.JugadorRanking" FromRole="Jugador" ToRole="Ranking" />
+        </EntityType>
+        <EntityType Name="Ranking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Posicion" Type="String" Nullable="false" />
+          <NavigationProperty Name="Jugador" Relationship="Model.JugadorRanking" FromRole="Ranking" ToRole="Jugador" />
+        </EntityType>
+        <Association Name="UsuarioJugador">
+          <End Type="Model.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Model.Jugador" Role="Jugador" Multiplicity="1" />
+        </Association>
+        <Association Name="JugadorRanking">
+          <End Type="Model.Jugador" Role="Jugador" Multiplicity="*" />
+          <End Type="Model.Ranking" Role="Ranking" Multiplicity="1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PacmanDBModelStoreContainer" CdmEntityContainer="PacmanDBEntities">
-          <EntitySetMapping Name="JugadorSet">
-            <EntityTypeMapping TypeName="PacmanDBModel.JugadorSet">
-              <MappingFragment StoreEntitySet="JugadorSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Correo" ColumnName="Correo" />
-                <ScalarProperty Name="PuntuaciónAlta" ColumnName="PuntuaciónAlta" />
-                <ScalarProperty Name="PantallasGanadas" ColumnName="PantallasGanadas" />
-                <ScalarProperty Name="PartidasGanadas" ColumnName="PartidasGanadas" />
-                <ScalarProperty Name="Elo" ColumnName="Elo" />
-                <ScalarProperty Name="Puntuación" ColumnName="Puntuación" />
-                <ScalarProperty Name="Ranking_Id" ColumnName="Ranking_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RankingSet">
-            <EntityTypeMapping TypeName="PacmanDBModel.RankingSet">
-              <MappingFragment StoreEntitySet="RankingSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Posición" ColumnName="Posición" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UsuarioSet">
-            <EntityTypeMapping TypeName="PacmanDBModel.UsuarioSet">
-              <MappingFragment StoreEntitySet="UsuarioSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Jugador_Id" ColumnName="Jugador_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="UsuarioSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Usuario)">
+        <MappingFragment StoreEntitySet="UsuarioSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JugadorSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Jugador)">
+        <MappingFragment StoreEntitySet="JugadorSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="PuntuaciónAlta" ColumnName="PuntuaciónAlta" />
+          <ScalarProperty Name="Puntuación" ColumnName="Puntuación" />
+          <ScalarProperty Name="PantallasGanadas" ColumnName="PantallasGanadas" />
+          <ScalarProperty Name="Elo" ColumnName="Elo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RankingSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Ranking)">
+        <MappingFragment StoreEntitySet="RankingSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Posicion" ColumnName="Posicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UsuarioJugador" TypeName="Model.UsuarioJugador" StoreEntitySet="UsuarioSet">
+      <EndProperty Name="Jugador">
+        <ScalarProperty Name="Id" ColumnName="Jugador_Id" />
+      </EndProperty>
+      <EndProperty Name="Usuario">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="JugadorRanking" TypeName="Model.JugadorRanking" StoreEntitySet="JugadorSet">
+      <EndProperty Name="Ranking">
+        <ScalarProperty Name="Id" ColumnName="Ranking_Id" />
+      </EndProperty>
+      <EndProperty Name="Jugador">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
-    <Connection>
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
       </DesignerInfoPropertySet>
-    </Connection>
-    <Options>
+    </edmx:Connection>
+    <edmx:Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
-    </Options>
+    </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
-  </Designer>
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
 </edmx:Edmx>

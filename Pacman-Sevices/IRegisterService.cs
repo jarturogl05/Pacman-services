@@ -12,17 +12,21 @@ namespace Pacman_Sevices
     public interface IRegisterService
     {
         [OperationContract]
-        int AddUser(User user);
+        int AddUser(Jugador jugador);
 
         [DataContract]
-        public class User
+        public class Jugador
         {
+            private String nombre;
             private String username;
             private String email;
             private String password;
 
             [DataMember]
-            public String Nombre { get { return username; } set { username = value; } }
+            public String Nombre { get { return nombre; } set { nombre = value; } }
+
+            [DataMember]
+            public String Username { get { return username; } set { username = value; } }
 
             [DataMember]
             public String Correo { get { return email; } set { email = value; } }
