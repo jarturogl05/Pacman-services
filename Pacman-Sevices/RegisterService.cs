@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +30,7 @@ namespace Pacman_Sevices
                     },
                     Usuario = new Usuario{
                          Username = jugador.Username,
-                         Password = jugador.Password
+                         Password = PassHash(jugador.Password)
                  }
                 },
 
@@ -37,12 +38,26 @@ namespace Pacman_Sevices
 
             foreach (var usuario in usuarios)
             {
-
                 container.JugadorSet.Add(usuario);
             }
             container.SaveChanges();
             
             return 1;
+        }
+        /// <summary>Hashea un parametro ingresado.</summary>
+        /// <param name="data">El parametro.</param>
+        /// <returns>El parametro en SHA1</returns>
+        private String PassHash(String data)
+        {
+            SHA1 sha = SHA1.Create();
+            byte[] hashData = sha.ComputeHash(Encoding.Default.GetBytes(data));
+            StringBuilder stringBuilderValue = new StringBuilder();
+
+            for (int i = 0; i < hashData.Length; i++)
+            {
+                stringBuilderValue.Append(hashData[i].ToString());
+            }
+            return stringBuilderValue.ToString();
         }
     }
 }
