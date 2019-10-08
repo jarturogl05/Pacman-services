@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacman-Sevices", "Pacman-Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacman-SevicesTests", "Pacman-SevicesTests\Pacman-SevicesTests.csproj", "{E50485DA-98B5-4DD8-A632-5D50CBBB3CC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteVariado", "..\..\..\..\..\..\source\repos\ClienteVariado\ClienteVariado\ClienteVariado.csproj", "{34595840-D007-43EC-8BAE-605CEE907334}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{E50485DA-98B5-4DD8-A632-5D50CBBB3CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E50485DA-98B5-4DD8-A632-5D50CBBB3CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E50485DA-98B5-4DD8-A632-5D50CBBB3CC8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34595840-D007-43EC-8BAE-605CEE907334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34595840-D007-43EC-8BAE-605CEE907334}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34595840-D007-43EC-8BAE-605CEE907334}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34595840-D007-43EC-8BAE-605CEE907334}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
