@@ -12,12 +12,12 @@ namespace Pacman_Sevices
     public interface IChatService
     {
         [OperationContract]
-        void Connect(String name);
+        int Connect(String name);
         [OperationContract]
         void Disconnect(int id);
 
-        [OperationContract]
-        void SendMessage(String msg, int id);
+        [OperationContract(IsOneWay = true)]
+        void SendMsg(String msg, int id);
     }
 
     public interface IServerChatCallback

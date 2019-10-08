@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Pacman_Sevices
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ChatService : IChatService
     {
         List<ServerUser> users = new List<ServerUser>();
         int nextId = 1;
-        public void Connect(String name)
+        public int Connect(String name)
         {
             ServerUser user = new ServerUser()
             {
@@ -21,6 +22,7 @@ namespace Pacman_Sevices
             };
             nextId++;
             users.Add(user);
+            return user.ID;
         }
         public void Disconnect(int id)
         {
@@ -28,9 +30,10 @@ namespace Pacman_Sevices
             if (user != null)
             {
                 users.Remove(user);
+                SendMsg(": " + user.Name + " disconnected from chat!", 0);
             }
         }
-        public void SendMessage(String message, int id)
+        public void SendMsg(String message, int id)
         {
             foreach (var item in users)
             {
