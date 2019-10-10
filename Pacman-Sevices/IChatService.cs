@@ -8,28 +8,21 @@ using System.Threading.Tasks;
 
 namespace Pacman_Sevices
 {
-    [ServiceContract]
+    [ServiceContract(CallbackContract = typeof(IServerChatCallback))]
     public interface IChatService
     {
-
         [OperationContract]
-        void Say(Message msg);
-
+        int Connect(String name);
         [OperationContract]
-        void Receive(Message msg);
+        void Disconnect(int id);
 
-        [DataContract]
-        public class Message
-        {
-            private string content;
-            private string sender;
+        [OperationContract(IsOneWay = true)]
+        void SendMsg(String msg, int id);
+    }
 
-            [DataMember]
-            public string Sender { get { return sender; } set { sender = value; } }
-
-            [DataMember]
-            public string Content { get { return content; } set { content = value; } }
-
-        }
+    public interface IServerChatCallback
+    {
+        [OperationContract(IsOneWay = true)]
+        void MsgCallback(String msg);
     }
 }
