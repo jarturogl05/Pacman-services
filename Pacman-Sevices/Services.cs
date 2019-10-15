@@ -46,7 +46,13 @@ namespace Pacman_Sevices
                     answer += ": " + user.Name + " ";
                 }
                 answer += message;
-                item.operationContext.GetCallbackChannel<IServerChatCallback>().MsgCallback(answer);
+                try
+                {
+                    item.operationContext.GetCallbackChannel<IServerChatCallback>().MsgCallback(answer);
+                }catch (Exception)
+                {
+
+                }
             }
         }
     }
