@@ -36,7 +36,7 @@ namespace Pacman_Sevices
 
             };
 
-            foreach (var usuario in usuarios)
+            foreach (var usuario in usuarios)  
             {
                 container.JugadorSet.Add(usuario);
             }

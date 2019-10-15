@@ -13,7 +13,7 @@ namespace Host
     {
         static void Main(string[] args)
         {
-            using (ServiceHost host = new ServiceHost(typeof(ChatService)))
+            using (ServiceHost host = new ServiceHost(typeof(Services)))
             {
                 host.Open();
                 Console.WriteLine("Server is running");

@@ -15,7 +15,6 @@ namespace Pacman_Sevices
         int Connect(String name);
         [OperationContract]
         void Disconnect(int id);
-
         [OperationContract(IsOneWay = true)]
         void SendMsg(String msg, int id);
     }
