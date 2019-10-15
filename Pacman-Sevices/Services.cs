@@ -108,7 +108,7 @@ namespace Pacman_Sevices
             ModelContainer container = new ModelContainer();
             foreach (var Usuario in container.UsuarioSet)
             {
-                if (Usuario.Username == usuario.Username && Usuario.Password == usuario.Password)
+                if (Usuario.Username == usuario.Username && Usuario.Password == PassHash(usuario.Password))
                 {
                     return 1;
                 }
