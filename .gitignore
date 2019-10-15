@@ -1,16 +1,8 @@
 
-.vs/Pacman-Sevices/v16/.suo
+Client/.vs/ClienteVariado/v16/
 
-DataAccess/bin/Debug/
+Client/ClienteVariado/bin/Debug/
 
-DataAccess/obj/Debug/
+Client/ClienteVariado/obj/Debug/
 
-.vs/Pacman-Sevices/v16/Server/sqlite3/
-
-Host/bin/Debug/
-
-Host/obj/Debug/
-
-Pacman-Sevices/bin/Debug/
-
-Pacman-Sevices/obj/Debug/
+Server/README.md
