@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
@@ -49,7 +50,8 @@ namespace Pacman_Sevices
                 try
                 {
                     item.operationContext.GetCallbackChannel<IServerChatCallback>().MsgCallback(answer);
-                }catch (Exception)
+                }
+                catch (Exception)
                 {
 
                 }
@@ -61,6 +63,7 @@ namespace Pacman_Sevices
         public int AddUser(IRegisterService.Jugador jugador)
         {
             DataAccess.ModelContainer container = new ModelContainer();
+            Random random = new Random();
             ICollection<Jugador> usuarios = new List<Jugador>
         {
             new Jugador{
@@ -77,7 +80,9 @@ namespace Pacman_Sevices
                 },
                 Usuario = new Usuario{
                         Username = jugador.Username,
-                        Password = PassHash(jugador.Password)
+                        Password = PassHash(jugador.Password),
+                        Confirmación = "False",
+                        Código = jugador.Código
                 }
             },
 
@@ -88,9 +93,10 @@ namespace Pacman_Sevices
                 container.JugadorSet.Add(usuario);
             }
             container.SaveChanges();
-
+            
             return 1;
         }
+
         /// <summary>Hashea un parametro ingresado.</summary>
         /// <param name="data">El parametro.</param>
         /// <returns>El parametro en SHA1</returns>
@@ -106,6 +112,8 @@ namespace Pacman_Sevices
             }
             return stringBuilderValue.ToString();
         }
+
+
     }
     public partial class Services : ILoginService
     {
@@ -120,6 +128,48 @@ namespace Pacman_Sevices
                 }
             }
             return 0;
+        }
+    }
+
+    public partial class Services : IConfirmationServices
+    {
+
+        public int GenerateNewCode(IConfirmationServices.Jugador jugador)
+        {
+            Random random = new Random();
+            jugador.Usuario.Código = random.Next(0, 999999).ToString();
+            ModelContainer modelContainer = new ModelContainer();
+            modelContainer.UsuarioSet.Attach(jugador.Usuario);
+            modelContainer.Entry(jugador.Usuario).Property("Código").IsModified = true;
+            modelContainer.SaveChanges();
+            SendEmail(jugador);
+            return 1;
+        }
+
+
+
+        public int SendEmail(IConfirmationServices.Jugador jugador)
+        {
+            
+            System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
+            msg.To.Add(jugador.Correo);
+            msg.From = new MailAddress("pacmanlisuv@gmail.com", "Pacman rey de la colina");
+            msg.Subject = "Código de confirmación";
+            msg.SubjectEncoding = System.Text.Encoding.UTF8;
+            msg.Body = jugador.Código;
+            msg.BodyEncoding = System.Text.Encoding.UTF8;
+            msg.IsBodyHtml = false;
+
+            //Aquí es donde se hace lo especial
+            SmtpClient client = new SmtpClient();
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential("pacmanlisuv@gmail.com", "pacmanpacman05");
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.EnableSsl = true; //Esto es para que vaya a través de SSL que es obligatorio con GMail            
+            client.Send(msg);
+            return 1;
         }
     }
 }

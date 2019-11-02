@@ -17,6 +17,8 @@ namespace DataAccess
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Confirmación { get; set; }
+        public string Código { get; set; }
     
         public virtual Jugador Jugador { get; set; }
     }
