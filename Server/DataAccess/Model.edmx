@@ -25,6 +25,8 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Confirmación" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Código" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Jugador_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="JugadorSet">
@@ -96,6 +98,8 @@
           <Property Name="Username" Type="String" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" />
           <NavigationProperty Name="Jugador" Relationship="Model.UsuarioJugador" FromRole="Usuario" ToRole="Jugador" />
+          <Property Name="Confirmación" Type="String" Nullable="false" />
+          <Property Name="Código" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Jugador">
           <Key>
@@ -139,6 +143,8 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Confirmación" ColumnName="Confirmación" />
+          <ScalarProperty Name="Código" ColumnName="Código" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

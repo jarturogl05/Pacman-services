@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="ChatService.cs" />
     <Compile Include="IChatService.cs" />
+    <Compile Include="IConfirmationServices.cs" />
     <Compile Include="ILoginService.cs" />
     <Compile Include="IRegisterService.cs" />
     <Compile Include="IScoreService.cs" />

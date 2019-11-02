@@ -21,6 +21,7 @@ namespace Pacman_Sevices
             private String username;
             private String email;
             private String password;
+            private string código;
 
             [DataMember]
             public String Nombre { get { return nombre; } set { nombre = value; } }
@@ -33,6 +34,9 @@ namespace Pacman_Sevices
 
             [DataMember]
             public String Password { get { return password; } set { password = value; } }
+
+            [DataMember]
+            public String Código { get { return código; } set { código = value; } }
 
         }
     }
