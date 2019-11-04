@@ -136,13 +136,23 @@ namespace Pacman_Sevices
 
         public int GenerateNewCode(IConfirmationServices.Jugador jugador)
         {
-            Random random = new Random();
-            jugador.Usuario.Código = random.Next(0, 999999).ToString();
-            ModelContainer modelContainer = new ModelContainer();
-            modelContainer.UsuarioSet.Attach(jugador.Usuario);
-            modelContainer.Entry(jugador.Usuario).Property("Código").IsModified = true;
-            modelContainer.SaveChanges();
-            SendEmail(jugador);
+            using (var context = new ModelContainer())
+            {
+               
+                var jgd = context.JugadorSet
+                                .Where(b => b.Correo == jugador.Correo)
+                                .FirstOrDefault();
+
+                Random random = new Random();
+                jgd.Usuario.Código = random.Next(0, 999999).ToString();
+
+                context.UsuarioSet.Attach(jgd.Usuario);
+                context.Entry(jgd.Usuario).Property("Código").IsModified = true;
+                context.SaveChanges();
+                jugador.Código = jgd.Usuario.Código;
+                SendEmail(jugador);
+            }
+
             return 1;
         }
 
