@@ -21,6 +21,7 @@ namespace Pacman_Sevices
                 operationContext = OperationContext.Current
             };
             nextId++;
+            Console.WriteLine("El id: "+ user.ID);
             users.Add(user);
             return user.ID;
         }

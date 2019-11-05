@@ -6,3 +6,15 @@ Client/ClienteVariado/bin/Debug/
 Client/ClienteVariado/obj/Debug/
 
 Server/README.md
+
+Server/.vs/Pacman-Sevices/config/applicationhost.config
+
+Server/DataAccess/bin/Release/
+
+Server/DataAccess/obj/Release/
+
+Server/Host/obj/Release/
+
+Server/Pacman-Sevices/bin/Release/
+
+Server/Pacman-Sevices/obj/Release/

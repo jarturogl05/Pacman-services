@@ -26,6 +26,9 @@ namespace ClienteVariado.ServiceReference {
         private string CorreoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CódigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -53,6 +56,19 @@ namespace ClienteVariado.ServiceReference {
                 if ((object.ReferenceEquals(this.CorreoField, value) != true)) {
                     this.CorreoField = value;
                     this.RaisePropertyChanged("Correo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Código {
+            get {
+                return this.CódigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CódigoField, value) != true)) {
+                    this.CódigoField = value;
+                    this.RaisePropertyChanged("Código");
                 }
             }
         }
