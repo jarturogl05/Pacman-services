@@ -133,15 +133,43 @@ namespace Pacman_Sevices
 
     public partial class Services : IConfirmationServices
     {
+        public int ChangeConfirmationStatus(IConfirmationServices.Jugador jugador)
+        {
+
+            int resultado  = 0;
+            using (var context = new ModelContainer())
+            {
+
+                var jgd = context.JugadorSet
+                                .Where(b => b.Correo == jugador.Correo)
+                                .FirstOrDefault();
+
+                if (jgd.Usuario.Código == jugador.Código)
+                {
+                    jgd.Usuario.Confirmación = "True";
+                    context.UsuarioSet.Attach(jgd.Usuario);
+                    context.Entry(jgd.Usuario).Property("Confirmación").IsModified = true;
+                    context.SaveChanges();
+                    resultado = 1;
+                }
+
+               
+            }
+
+
+            return resultado;
+        }
 
         public int GenerateNewCode(IConfirmationServices.Jugador jugador)
         {
             using (var context = new ModelContainer())
             {
-               
                 var jgd = context.JugadorSet
                                 .Where(b => b.Correo == jugador.Correo)
                                 .FirstOrDefault();
+
+
+                Console.WriteLine(jgd.Usuario.Código);
 
                 Random random = new Random();
                 jgd.Usuario.Código = random.Next(0, 999999).ToString();
@@ -170,14 +198,13 @@ namespace Pacman_Sevices
             msg.BodyEncoding = System.Text.Encoding.UTF8;
             msg.IsBodyHtml = false;
 
-            //Aquí es donde se hace lo especial
             SmtpClient client = new SmtpClient();
             client.UseDefaultCredentials = false;
             client.Credentials = new System.Net.NetworkCredential("pacmanlisuv@gmail.com", "pacmanpacman05");
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.EnableSsl = true; //Esto es para que vaya a través de SSL que es obligatorio con GMail            
+            client.EnableSsl = true;            
             client.Send(msg);
             return 1;
         }

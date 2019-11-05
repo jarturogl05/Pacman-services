@@ -18,6 +18,9 @@ namespace Pacman_Sevices
         [OperationContract]
         int GenerateNewCode(Jugador jugador);
 
+        [OperationContract]
+        int ChangeConfirmationStatus(Jugador jugador);
+
         [DataContract]
         public class Jugador
         {
