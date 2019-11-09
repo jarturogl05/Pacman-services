@@ -12,7 +12,7 @@ namespace Pacman_Sevices
     public interface IRegisterService
     {
         [OperationContract]
-        int AddUser(Jugador jugador);
+        DBOperationResult.AddResult AddUser(Jugador jugador);
 
         [DataContract]
         public class Jugador

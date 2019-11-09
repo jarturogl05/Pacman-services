@@ -44,6 +44,12 @@ namespace Pacman_Sevices
             
             return 1;
         }
+
+        DBOperationResult.AddResult IRegisterService.AddUser(IRegisterService.Jugador jugador)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>Hashea un parametro ingresado.</summary>
         /// <param name="data">El parametro.</param>
         /// <returns>El parametro en SHA1</returns>

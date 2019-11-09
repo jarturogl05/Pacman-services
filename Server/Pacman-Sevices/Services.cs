@@ -6,7 +6,6 @@ using System.Net.Mail;
 using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Pacman_Sevices
 {
@@ -61,13 +60,44 @@ namespace Pacman_Sevices
     }
     public partial class Services : IRegisterService
     {
-        public int AddUser(IRegisterService.Jugador jugador)
+        private DBOperationResult.AddResult CheckObjectJugador(IRegisterService.Jugador jugador)
         {
-            DataAccess.ModelContainer container = new ModelContainer();
-            Random random = new Random();
+            ValidarCampos validarCampos = new ValidarCampos();
+            DBOperationResult.AddResult result = DBOperationResult.AddResult.UnknowFail;
+            if(jugador.Correo == string.Empty || jugador.Nombre == string.Empty || jugador.Password == string.Empty || jugador.Username == string.Empty)
+            {
+                throw new FormatException("El jugador tiene campos vacios");
+            }
+            else if(validarCampos.ValidarCorreo(jugador.Correo) == ValidarCampos.ResultadosValidación.Correoinválido)
+            {
+                throw new FormatException("El correo no tiene un formato válido" + jugador.Correo);
+            }
+            else
+            {
+                result = DBOperationResult.AddResult.Success;
+            }
+
+            return result;
+        }
+
+        public DBOperationResult.AddResult AddUser(IRegisterService.Jugador jugador)
+        {
+            DBOperationResult.AddResult result = DBOperationResult.AddResult.UnknowFail;
+            DBOperationResult.AddResult checkForEmpty = DBOperationResult.AddResult.NullObject;
+            try
+            {
+                checkForEmpty = CheckObjectJugador(jugador);
+            }
+            catch (FormatException)
+            {
+                result = DBOperationResult.AddResult.NullObject;
+                return result;
+            }
+
+            DataAccess.ModelContainer container = new ModelContainer();            
             ICollection<Jugador> usuarios = new List<Jugador>
-        {
-            new Jugador{
+            {
+                new Jugador{
                 Nombre = jugador.Nombre,
                 Correo = jugador.Correo,
                 Elo = "",
@@ -85,17 +115,18 @@ namespace Pacman_Sevices
                         Confirmación = "False",
                         Código = jugador.Código
                 }
-            },
+                },
 
-        };
+            };
 
             foreach (var usuario in usuarios)
             {
                 container.JugadorSet.Add(usuario);
             }
             container.SaveChanges();
-            
-            return 1;
+            result = DBOperationResult.AddResult.Success;
+
+            return result;
         }
 
         /// <summary>Hashea un parametro ingresado.</summary>
