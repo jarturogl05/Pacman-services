@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatService.cs" />
+    <Compile Include="DBOperationResult.cs" />
     <Compile Include="IChatService.cs" />
     <Compile Include="IConfirmationServices.cs" />
     <Compile Include="ILoginService.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="RegisterService.cs" />
     <Compile Include="ServerUser.cs" />
     <Compile Include="Services.cs" />
+    <Compile Include="ValidarCampos.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
