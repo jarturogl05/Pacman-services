@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Pacman_Sevices
 {
@@ -16,12 +12,12 @@ namespace Pacman_Sevices
         [OperationContract]
         void Disconnect(int id);
         [OperationContract(IsOneWay = true)]
-        void SendMsg(String msg, int id);
+        void SendMsg(String message, int id);
     }
 
     public interface IServerChatCallback
     {
         [OperationContract(IsOneWay = true)]
-        void MsgCallback(String msg);
+        void MsgCallback(String message);
     }
 }

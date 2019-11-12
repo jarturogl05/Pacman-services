@@ -1,145 +1,151 @@
 ¦
 \C:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\DBOperationResult.cs
 
-		 "
+ "
 
- 
+ 
 
- 
+ 
 
- 
-
- 
-
- ç
-WC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\IChatService.cs
- (/ B
-
- !
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
-% '
-
- 
-
-  #¦
-`C:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\IConfirmationServices.cs
-
- *
-
- (
-   #% ,
-
- %
-
- 
-
-$ +
-
- $
-
-- 4
-    0 5  ? D
- ###2 9##C J
- !&&0 6&&@ F
-
-    
-  9 <  G L
-
-## "
-##= @##M R
-
-&&  
-&&: =&&I N˜
-XC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\ILoginService.cs
-
- "
-
- 
-   
-
-! (
- #2 :D L
- #2 :D L
-
- "
-> AO T
-
- "
-> AO Tá
-[C:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\IRegisterService.cs
-
- %
-
-$ +
- , 3
-
-4 ;
- !0 6@ F
- #2 :D L
-  !!0 5!!? D
- #$$2 :$$D L
- !''0 6''@ F
-
-  
-: =I N
-
- "
-> AO T
-
-!!  
-!!9 <!!G L
-
-$$ "
-$$> A$$O T
-
-''  
-'': =''I NÆ
-XC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\IScoreService.cs
-
- "
-
- 
-   
-
- 
-
-( -
-
- 
-
- !
- #  0 8  B J
- %$$4 >$$H R
-
-    
-  < ?  M R
-
-$$ $
-$$B E$$U Zd
-bC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\Properties\AssemblyInfo.cs‡
-UC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\ServerUser.cs
+		 
 
 
 
- 
+ 
 
- 
+ ç
+WC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\IChatService.cs
+ (/ B
 
- 
+ !
 
-  0õ
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ #
+
+) +
+
+ 
+
+  '¦
+`C:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\IConfirmationServices.cs
+
+
+
+ *
+
+ (
+   #% ,
+
+ %
+
+ 
+
+$ +
+
+ $
+
+- 4
+  0 5? D
+ #  2 9  C J
+ !##0 6##@ F
+
+  
+9 <G L
+
+   "
+  = @  M R
+
+##  
+##: =##I N˜
+XC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\ILoginService.cs
+
+		 "
+
+ 
+   
+
+! (
+ #2 :D L
+ #2 :D L
+
+ "
+> AO T
+
+ "
+> AO Tá
+[C:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\IRegisterService.cs
+
+		 %
+
+$ +
+ , 3
+
+4 ;
+ !0 6@ F
+ #2 :D L
+  0 5? D
+ #!!2 :!!D L
+ !$$0 6$$@ F
+
+  
+: =I N
+
+ "
+> AO T
+
+  
+9 <G L
+
+!! "
+!!> A!!O T
+
+$$  
+$$: =$$I NÆ
+XC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\IScoreService.cs
+
+
+
+ "
+
+ 
+   
+
+ 
+
+( -
+
+ 
+
+ !
+ #0 8B J
+ %!!4 >!!H R
+
+  
+< ?M R
+
+!! $
+!!B E!!U Zd
+bC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\Properties\AssemblyInfo.cs‡
+UC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\ServerUser.cs
+
+ 
+
+		 
+
+
+
+ 
+
+  0õ
 SC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\Services.cs
 
  !<
@@ -288,27 +294,27 @@ SC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\Service
 ðð ¦
 XC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\ValidarCampos.cs
 
+ F
+ ( #   +"" '&& #++ +-- '
 
 
- F
- ( #$$ +&& '** #// +11 '
- &&( :
- $$, <
- 11( 6
- //, 8
+ ""( :
+   , <
+ --( 6
+ ++, 8
 
- 
+ 
 
- 
+ 
 
- 
+ 
 
- 
+ 
 
-$ 3
-; E"" (
-   ""* 0
+$ 3
+; E (
+ * 0
 
-**$ 1
-**9 ?-- $
-,, --& ,
+&&$ 1
+&&9 ?)) $
+(( ))& ,
