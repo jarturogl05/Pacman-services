@@ -53,7 +53,7 @@ namespace Pacman_Sevices
                 }
                 catch (Exception)
                 {
-
+                    throw new NotImplementedException();
                 }
             }
         }
