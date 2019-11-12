@@ -1,0 +1,12 @@
+e
+\C:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\DBOperationResult.csutf-8`
+WC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\IChatService.csutf-8i
+`C:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\IConfirmationServices.csutf-8a
+XC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\ILoginService.csutf-8d
+[C:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\IRegisterService.csutf-8a
+XC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\IScoreService.csutf-8k
+bC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\Properties\AssemblyInfo.csutf-8^
+UC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\ServerUser.csutf-8\
+SC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\Services.csutf-8a
+XC:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\Pacman-Sevices\ValidarCampos.csutf-8`
+UC:\Users\Muterk\AppData\Local\Temp\.NETFramework,Version=v4.7.2.AssemblyAttributes.csutf-8
