@@ -60,33 +60,25 @@ namespace Pacman_Sevices
     }
     public partial class Services : IRegisterService
     {
-        private DBOperationResult.AddResult CheckObjectJugador(IRegisterService.Jugador jugador)
+        private void CheckObjectJugador(IRegisterService.Jugador jugador)
         {
             ValidarCampos validarCampos = new ValidarCampos();
-            DBOperationResult.AddResult result = DBOperationResult.AddResult.UnknowFail;
             if(jugador.Correo == string.Empty || jugador.Nombre == string.Empty || jugador.Password == string.Empty || jugador.Username == string.Empty)
             {
                 throw new FormatException("El jugador tiene campos vacios");
             }
-            else if(validarCampos.ValidarCorreo(jugador.Correo) == ValidarCampos.ResultadosValidación.Correoinválido)
+            else if(validarCampos.ValidarCorreo(jugador.Correo) == ValidarCampos.ResultadosValidacion.Correoinválido)
             {
                 throw new FormatException("El correo no tiene un formato válido" + jugador.Correo);
             }
-            else
-            {
-                result = DBOperationResult.AddResult.Success;
-            }
-
-            return result;
         }
 
         public DBOperationResult.AddResult AddUser(IRegisterService.Jugador jugador)
         {
-            DBOperationResult.AddResult result = DBOperationResult.AddResult.UnknowFail;
-            DBOperationResult.AddResult checkForEmpty = DBOperationResult.AddResult.NullObject;
+            DBOperationResult.AddResult result;
             try
             {
-                checkForEmpty = CheckObjectJugador(jugador);
+                CheckObjectJugador(jugador);
             }
             catch (FormatException)
             {

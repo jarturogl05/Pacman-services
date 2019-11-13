@@ -14,7 +14,7 @@ namespace Pacman_Sevices
         [OperationContract(IsOneWay = true)]
         void SendMsg(String message, int id);
     }
-
+    [ServiceContract]
     public interface IServerChatCallback
     {
         [OperationContract(IsOneWay = true)]
