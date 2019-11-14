@@ -73,6 +73,8 @@ namespace Pacman_Sevices
             }
         }
 
+
+
         public DBOperationResult.AddResult AddUser(IRegisterService.Jugador jugador)
         {
             DBOperationResult.AddResult result;
@@ -137,7 +139,31 @@ namespace Pacman_Sevices
             return stringBuilderValue.ToString();
         }
 
+        public DBOperationResult.AddResult SerachUserInDB(IRegisterService.Jugador jugador)
+        {
+            DBOperationResult.AddResult result;
 
+            ModelContainer container = new ModelContainer();
+            ICollection<Jugador> Jugadores = new List<Jugador>();
+            foreach (var Jugador in container.JugadorSet)
+            {
+                if (Jugador.Usuario.Username == jugador.Username && Jugador.Correo == jugador.Correo) ;
+                {
+                    Jugadores.Add(Jugador);
+                }
+            }
+
+            if (Jugadores.Any())
+            {
+                result = DBOperationResult.AddResult.ExistingRecord;
+            }
+            else
+            {
+                result = DBOperationResult.AddResult.Success;
+            }
+
+            return result;
+        }
     }
     public partial class Services : ILoginService
     {
@@ -176,10 +202,8 @@ namespace Pacman_Sevices
                     context.SaveChanges();
                     resultado = 1;
                 }
-
                
             }
-
 
             return resultado;
         }

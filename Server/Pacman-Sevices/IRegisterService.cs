@@ -11,6 +11,9 @@ namespace Pacman_Sevices
         [OperationContract]
         DBOperationResult.AddResult AddUser(Jugador jugador);
 
+        [OperationContract]
+        DBOperationResult.AddResult SerachUserInDB(Jugador jugador);
+
         [DataContract]
         public class Jugador
         {
