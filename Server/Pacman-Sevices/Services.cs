@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
-using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
 
@@ -105,7 +104,7 @@ namespace Pacman_Sevices
                 },
                 Usuario = new Usuario{
                         Username = jugador.Username,
-                        Password = PassHash(jugador.Password),
+                        Password = jugador.Password,
                         Confirmación = "False",
                         Código = jugador.Código
                 }
@@ -123,21 +122,7 @@ namespace Pacman_Sevices
             return result;
         }
 
-        /// <summary>Hashea un parametro ingresado.</summary>
-        /// <param name="data">El parametro.</param>
-        /// <returns>El parametro en SHA1</returns>
-        private String PassHash(String data)
-        {
-            SHA1 sha = SHA1.Create();
-            byte[] hashData = sha.ComputeHash(Encoding.Default.GetBytes(data));
-            StringBuilder stringBuilderValue = new StringBuilder();
 
-            for (int i = 0; i < hashData.Length; i++)
-            {
-                stringBuilderValue.Append(hashData[i].ToString());
-            }
-            return stringBuilderValue.ToString();
-        }
 
         public DBOperationResult.AddResult SerachUserInDB(IRegisterService.Jugador jugador)
         {
@@ -145,11 +130,11 @@ namespace Pacman_Sevices
 
             ModelContainer container = new ModelContainer();
             ICollection<Jugador> Jugadores = new List<Jugador>();
-            foreach (var Jugador in container.JugadorSet)
+            foreach (var player in container.JugadorSet)
             {
-                if (Jugador.Usuario.Username == jugador.Username && Jugador.Correo == jugador.Correo) ;
+                if (player.Usuario.Username == jugador.Username || player.Correo == jugador.Correo)
                 {
-                    Jugadores.Add(Jugador);
+                    Jugadores.Add(player);
                 }
             }
 
@@ -172,7 +157,7 @@ namespace Pacman_Sevices
             ModelContainer container = new ModelContainer();
             foreach (var Usuario in container.UsuarioSet)
             {
-                if (Usuario.Username == usuario.Username && Usuario.Password == PassHash(usuario.Password))
+                if (Usuario.Username == usuario.Username && Usuario.Password == usuario.Password)
                 {
                     return 1;
                 }
