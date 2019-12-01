@@ -195,18 +195,13 @@ namespace Pacman_Sevices
 
         public int GenerateNewCode(IConfirmationServices.Jugador jugador)
         {
+
             using (var context = new ModelContainer())
             {
                 var jgd = context.JugadorSet
                                 .Where(b => b.Correo == jugador.Correo)
                                 .FirstOrDefault();
-
-
-                Console.WriteLine(jgd.Usuario.Código);
-
-                Random random = new Random();
-                jgd.Usuario.Código = random.Next(0, 999999).ToString();
-
+                jgd.Usuario.Código = jugador.Código;
                 context.UsuarioSet.Attach(jgd.Usuario);
                 context.Entry(jgd.Usuario).Property("Código").IsModified = true;
                 context.SaveChanges();
