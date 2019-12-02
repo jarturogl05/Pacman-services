@@ -9,7 +9,10 @@ namespace Pacman_Sevices
     public interface ILoginService
     {
         [OperationContract]
-        int ValidateUser(Usuario usuario);
+        DBOperationResult.AddResult ValidateUser(Usuario usuario);
+
+        [OperationContract]
+        string GetEmail(Usuario usuario);
 
         [DataContract]
         public class Usuario

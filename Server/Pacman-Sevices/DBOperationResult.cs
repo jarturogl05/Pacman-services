@@ -8,7 +8,9 @@ namespace Pacman_Sevices
             Success,
             NullObject,
             UnknowFail,
-            ExistingRecord
+            ExistingRecord,
+            WrongCredentials,
+            ConfirmationIsFalse
         }
     }
 }
