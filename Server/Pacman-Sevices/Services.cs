@@ -170,8 +170,7 @@ namespace Pacman_Sevices
         }
 
         public DBOperationResult.AddResult ValidateUser(ILoginService.Usuario usuario)
-        {
-            Console.WriteLine("uwu");
+        {          
             DBOperationResult.AddResult result;
             ModelContainer container = new ModelContainer();
             ICollection<Usuario> usuarios = new List<Usuario>();
