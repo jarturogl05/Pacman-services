@@ -1,6 +1,7 @@
 ﻿using DataAccess;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
 using System.ServiceModel;
@@ -94,19 +95,16 @@ namespace Pacman_Sevices
                 Nombre = jugador.Nombre,
                 Correo = jugador.Correo,
                 Elo = "",
-                PuntuaciónAlta = "",
-                Puntuación = "",
-                PantallasGanadas = "",
-
+                PuntuaciónAlta = 0,
                 Ranking = new Ranking
                 {
-                    Posicion = "0"
+                    Posicion = 0
                 },
                 Usuario = new Usuario{
                         Username = jugador.Username,
                         Password = jugador.Password,
                         Confirmación = "False",
-                        Código = jugador.Código
+                        Código = int.Parse(jugador.Código)
                 }
                 },
 
@@ -165,12 +163,12 @@ namespace Pacman_Sevices
                 }
             }
 
-            email = usuarios.Single().Jugador.Correo;           
+            email = usuarios.Single().Jugador.Correo;
             return email;
         }
 
         public DBOperationResult.AddResult ValidateUser(ILoginService.Usuario usuario)
-        {          
+        {
             DBOperationResult.AddResult result;
             ModelContainer container = new ModelContainer();
             ICollection<Usuario> usuarios = new List<Usuario>();
@@ -200,75 +198,78 @@ namespace Pacman_Sevices
         }
     }
 
-        public partial class Services : IConfirmationServices
+    public partial class Services : IConfirmationServices
+    {
+        public int ChangeConfirmationStatus(IConfirmationServices.Jugador jugador)
         {
-            public int ChangeConfirmationStatus(IConfirmationServices.Jugador jugador)
-            {
-                
-                int resultado = 0;
-                using (var context = new ModelContainer())
-                {
 
-                    var jgd = context.JugadorSet
-                                    .Where(b => b.Correo == jugador.Correo)
-                                    .FirstOrDefault();
-                    
-                    if (jgd.Usuario.Código == jugador.Código)
-                    {
-                        jgd.Usuario.Confirmación = "True";
-                        context.UsuarioSet.Attach(jgd.Usuario);
-                        context.Entry(jgd.Usuario).Property("Confirmación").IsModified = true;
-                        context.SaveChanges();
-                        resultado = 1;
-                    }
-
-                }
-
-                return resultado;
-            }
-
-            public int GenerateNewCode(IConfirmationServices.Jugador jugador)
+            int resultado = 0;
+            using (var context = new ModelContainer())
             {
 
-                using (var context = new ModelContainer())
+                var jgd = context.JugadorSet
+                                .Where(b => b.Correo == jugador.Correo)
+                                .FirstOrDefault();
+
+                if (jgd.Usuario.Código == int.Parse(jugador.Código))
                 {
-                    var jgd = context.JugadorSet
-                                    .Where(b => b.Correo == jugador.Correo)
-                                    .FirstOrDefault();
-                    jgd.Usuario.Código = jugador.Código;
+                    jgd.Usuario.Confirmación = "True";
                     context.UsuarioSet.Attach(jgd.Usuario);
-                    context.Entry(jgd.Usuario).Property("Código").IsModified = true;
+                    context.Entry(jgd.Usuario).Property("Confirmación").IsModified = true;
                     context.SaveChanges();
-                    jugador.Código = jgd.Usuario.Código;
-                    SendEmail(jugador);
+                    resultado = 1;
                 }
 
-                return 1;
             }
 
+            return resultado;
+        }
 
+        public int GenerateNewCode(IConfirmationServices.Jugador jugador)
+        {
 
-            public int SendEmail(IConfirmationServices.Jugador jugador)
+            using (var context = new ModelContainer())
             {
-
-                System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
-                msg.To.Add(jugador.Correo);
-                msg.From = new MailAddress("pacmanlisuv@gmail.com", "Pacman rey de la colina");
-                msg.Subject = "Código de confirmación";
-                msg.SubjectEncoding = System.Text.Encoding.UTF8;
-                msg.Body = jugador.Código;
-                msg.BodyEncoding = System.Text.Encoding.UTF8;
-                msg.IsBodyHtml = false;
-
-                SmtpClient client = new SmtpClient();
-                client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("pacmanlisuv@gmail.com", "pacmanpacman05");
-                client.Port = 587;
-                client.Host = "smtp.gmail.com";
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.EnableSsl = true;
-                client.Send(msg);
-                return 1;
+                var jgd = context.JugadorSet
+                                .Where(b => b.Correo == jugador.Correo)
+                                .FirstOrDefault();
+                jgd.Usuario.Código = int.Parse(jugador.Código);
+                context.UsuarioSet.Attach(jgd.Usuario);
+                context.Entry(jgd.Usuario).Property("Código").IsModified = true;
+                context.SaveChanges();
+                jugador.Código = jgd.Usuario.Código.ToString();
+                SendEmail(jugador);
             }
+
+            return 1;
+        }
+
+
+
+        public int SendEmail(IConfirmationServices.Jugador jugador)
+        {
+
+            System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
+            msg.To.Add(jugador.Correo);
+            msg.From = new MailAddress(ConfigurationSettings.AppSettings["pacmanEmail"], "Pacman rey de la colina");
+            msg.Subject = "Código de confirmación";
+            msg.SubjectEncoding = System.Text.Encoding.UTF8;
+            msg.Body = jugador.Código;
+            msg.BodyEncoding = System.Text.Encoding.UTF8;
+            msg.IsBodyHtml = false;
+
+            SmtpClient client = new SmtpClient();
+            client.UseDefaultCredentials = false;
+
+
+
+            client.Credentials = new System.Net.NetworkCredential(ConfigurationSettings.AppSettings["pacmanEmail"], ConfigurationSettings.AppSettings["pacmanEmailPassword"]);
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.EnableSsl = true;
+            client.Send(msg);
+            return 1;
         }
     }
+}

@@ -17,9 +17,7 @@ namespace DataAccess
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Correo { get; set; }
-        public string PuntuaciónAlta { get; set; }
-        public string Puntuación { get; set; }
-        public string PantallasGanadas { get; set; }
+        public int PuntuaciónAlta { get; set; }
         public string Elo { get; set; }
     
         public virtual Usuario Usuario { get; set; }
