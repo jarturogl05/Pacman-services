@@ -248,7 +248,7 @@ namespace Pacman_Sevices
 
         public int SendEmail(IConfirmationServices.Jugador jugador)
         {
-
+            int result;
             System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
             msg.To.Add(jugador.Correo);
             msg.From = new MailAddress(ConfigurationSettings.AppSettings["pacmanEmail"], "Pacman rey de la colina");
@@ -257,19 +257,23 @@ namespace Pacman_Sevices
             msg.Body = jugador.Código;
             msg.BodyEncoding = System.Text.Encoding.UTF8;
             msg.IsBodyHtml = false;
-
             SmtpClient client = new SmtpClient();
             client.UseDefaultCredentials = false;
-
-
-
             client.Credentials = new System.Net.NetworkCredential(ConfigurationSettings.AppSettings["pacmanEmail"], ConfigurationSettings.AppSettings["pacmanEmailPassword"]);
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.EnableSsl = true;
-            client.Send(msg);
-            return 1;
+            try
+            {
+                client.Send(msg);
+                result = 1;
+            }
+            catch (SmtpException)
+            {
+                result = 0;
+            }
+            return result;
         }
     }
 }
