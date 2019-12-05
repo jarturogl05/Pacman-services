@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/02/2019 13:19:59
+-- Date Created: 12/04/2019 19:54:40
 -- Generated from EDMX file: C:\Users\Muterk\Documents\Git-hub\Pacman-services\Server\DataAccess\Model.edmx
 -- --------------------------------------------------
 
@@ -48,7 +48,7 @@ CREATE TABLE [dbo].[UsuarioSet] (
     [Username] nvarchar(max)  NOT NULL,
     [Password] nvarchar(max)  NOT NULL,
     [Confirmación] nvarchar(max)  NOT NULL,
-    [Código] nvarchar(max)  NOT NULL,
+    [Código] int  NOT NULL,
     [Jugador_Id] int  NOT NULL
 );
 GO
@@ -58,9 +58,7 @@ CREATE TABLE [dbo].[JugadorSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Nombre] nvarchar(max)  NOT NULL,
     [Correo] nvarchar(max)  NOT NULL,
-    [PuntuaciónAlta] nvarchar(max)  NOT NULL,
-    [Puntuación] nvarchar(max)  NOT NULL,
-    [PantallasGanadas] nvarchar(max)  NOT NULL,
+    [PuntuaciónAlta] int  NOT NULL,
     [Elo] nvarchar(max)  NOT NULL,
     [Ranking_Id] int  NOT NULL
 );
@@ -69,7 +67,7 @@ GO
 -- Creating table 'RankingSet'
 CREATE TABLE [dbo].[RankingSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Posicion] nvarchar(max)  NOT NULL
+    [Posicion] int  NOT NULL
 );
 GO
 
