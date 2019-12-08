@@ -59,6 +59,9 @@ namespace Pacman_Sevices
             }
         }
     }
+
+
+
     public partial class Services : IRegisterService
     {
         private void CheckObjectJugador(IRegisterService.Jugador jugador)
@@ -74,8 +77,6 @@ namespace Pacman_Sevices
                 throw new FormatException("El correo no tiene un formato válido" + jugador.Correo);
             }
         }
-
-
 
         public DBOperationResult.AddResult AddUser(IRegisterService.Jugador jugador)
         {
@@ -130,8 +131,6 @@ namespace Pacman_Sevices
             return result;
         }
 
-
-
         public DBOperationResult.AddResult SerachUserInDB(IRegisterService.Jugador jugador)
         {
             DBOperationResult.AddResult result;
@@ -173,21 +172,43 @@ namespace Pacman_Sevices
             return result;
         }
     }
+
+
+
+
     public partial class Services : ILoginService
     {
+        private void CheckObjectUser(ILoginService.Usuario usuario)
+        {
+            ValidarCampos validarCampos = new ValidarCampos();
+
+            if (usuario.Username == string.Empty || usuario.Password == string.Empty )
+            {
+                throw new FormatException("El jugador tiene campos vacios");
+            }
+
+        }
+
         public string GetEmail(ILoginService.Usuario usuario)
         {
             string email;
             ModelContainer container = new ModelContainer();
             ICollection<Usuario> usuarios = new List<Usuario>();
-            foreach (var user in container.UsuarioSet)
+            try
             {
-                if (user.Username == usuario.Username)
+                foreach (var user in container.UsuarioSet)
                 {
-                    usuarios.Add(user);
+                    if (user.Username == usuario.Username)
+                    {
+                        usuarios.Add(user);
+                    }
                 }
             }
-
+            catch (EntityException)
+            {
+                email = null;
+                return email;
+            }
             email = usuarios.Single().Jugador.Correo;
             return email;
         }
@@ -195,15 +216,34 @@ namespace Pacman_Sevices
         public DBOperationResult.AddResult ValidateUser(ILoginService.Usuario usuario)
         {
             DBOperationResult.AddResult result;
+            try
+            {
+                CheckObjectUser(usuario);
+            }
+            catch
+            {
+                result = DBOperationResult.AddResult.NullObject;
+                return result;
+            }
             ModelContainer container = new ModelContainer();
             ICollection<Usuario> usuarios = new List<Usuario>();
-            foreach (var user in container.UsuarioSet)
+
+            try
             {
-                if (user.Username == usuario.Username && user.Password == usuario.Password)
+                foreach (var user in container.UsuarioSet)
                 {
-                    usuarios.Add(user);
+                    if (user.Username == usuario.Username && user.Password == usuario.Password)
+                    {
+                        usuarios.Add(user);
+                    }
                 }
             }
+            catch (EntityException)
+            {
+                result = DBOperationResult.AddResult.SQLError;
+                return result;
+            }
+
             if (usuarios.Any())
             {
                 if (usuarios.Single().Confirmación == "False")
@@ -222,6 +262,10 @@ namespace Pacman_Sevices
             return result;
         }
     }
+
+
+
+
 
     public partial class Services : IConfirmationServices
     {
