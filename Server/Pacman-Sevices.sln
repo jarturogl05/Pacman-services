@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacman-Sevices", "Pacman-Sevices\Pacman-Sevices.csproj", "{9DD6B908-13AC-41B4-83B0-843C95990DE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacman-SevicesTests", "Pacman-SevicesTests\Pacman-SevicesTests.csproj", "{B6C9D48B-142E-4F81-9DB5-EC0E28B49667}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9DD6B908-13AC-41B4-83B0-843C95990DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DD6B908-13AC-41B4-83B0-843C95990DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DD6B908-13AC-41B4-83B0-843C95990DE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6C9D48B-142E-4F81-9DB5-EC0E28B49667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6C9D48B-142E-4F81-9DB5-EC0E28B49667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6C9D48B-142E-4F81-9DB5-EC0E28B49667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6C9D48B-142E-4F81-9DB5-EC0E28B49667}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
