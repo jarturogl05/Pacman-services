@@ -269,48 +269,57 @@ namespace Pacman_Sevices
 
     public partial class Services : IConfirmationServices
     {
-        public int ChangeConfirmationStatus(IConfirmationServices.Jugador jugador)
+        public DBOperationResult.AddResult ChangeConfirmationStatus(IConfirmationServices.Jugador jugador)
         {
-
-            int resultado = 0;
-            using (var context = new ModelContainer())
+            DBOperationResult.AddResult result;
+            try
             {
-
-                var jgd = context.JugadorSet
-                                .Where(b => b.Correo == jugador.Correo)
-                                .FirstOrDefault();
-
-                if (jgd.Usuario.Código == int.Parse(jugador.Código))
+                using (var context = new ModelContainer())
                 {
-                    jgd.Usuario.Confirmación = "True";
-                    context.UsuarioSet.Attach(jgd.Usuario);
-                    context.Entry(jgd.Usuario).Property("Confirmación").IsModified = true;
-                    context.SaveChanges();
-                    resultado = 1;
+                    var jgd = context.JugadorSet
+                                    .Where(b => b.Correo == jugador.Correo)
+                                    .FirstOrDefault();
+                    if (jgd.Usuario.Código == int.Parse(jugador.Código))
+                    {
+                        jgd.Usuario.Confirmación = "True";
+                        context.UsuarioSet.Attach(jgd.Usuario);
+                        context.Entry(jgd.Usuario).Property("Confirmación").IsModified = true;
+                        context.SaveChanges();                     
+                    }
                 }
-
+                result = DBOperationResult.AddResult.Success;
             }
-
-            return resultado;
+            catch (EntityException)
+            {
+                result = DBOperationResult.AddResult.SQLError;
+            }
+            return result; 
         }
 
-        public int GenerateNewCode(IConfirmationServices.Jugador jugador)
+        public DBOperationResult.AddResult GenerateNewCode(IConfirmationServices.Jugador jugador)
         {
-
-            using (var context = new ModelContainer())
+            DBOperationResult.AddResult result;
+            try
             {
-                var jgd = context.JugadorSet
-                                .Where(b => b.Correo == jugador.Correo)
-                                .FirstOrDefault();
-                jgd.Usuario.Código = int.Parse(jugador.Código);
-                context.UsuarioSet.Attach(jgd.Usuario);
-                context.Entry(jgd.Usuario).Property("Código").IsModified = true;
-                context.SaveChanges();
-                jugador.Código = jgd.Usuario.Código.ToString();
-                SendEmail(jugador);
+                using (var context = new ModelContainer())
+                {
+                    var jgd = context.JugadorSet
+                                    .Where(b => b.Correo == jugador.Correo)
+                                    .FirstOrDefault();
+                    jgd.Usuario.Código = int.Parse(jugador.Código);
+                    context.UsuarioSet.Attach(jgd.Usuario);
+                    context.Entry(jgd.Usuario).Property("Código").IsModified = true;
+                    context.SaveChanges();
+                    jugador.Código = jgd.Usuario.Código.ToString();
+                    SendEmail(jugador);
+                }
+                result = DBOperationResult.AddResult.Success;
             }
-
-            return 1;
+            catch (EntityException)
+            {
+                result = DBOperationResult.AddResult.SQLError;
+            }
+            return result;
         }
 
 
