@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Net.Mail;
 using System.ServiceModel;
@@ -63,6 +64,7 @@ namespace Pacman_Sevices
         private void CheckObjectJugador(IRegisterService.Jugador jugador)
         {
             ValidarCampos validarCampos = new ValidarCampos();
+
             if (jugador.Correo == string.Empty || jugador.Nombre == string.Empty || jugador.Password == string.Empty || jugador.Username == string.Empty)
             {
                 throw new FormatException("El jugador tiene campos vacios");
@@ -114,8 +116,16 @@ namespace Pacman_Sevices
             {
                 container.JugadorSet.Add(usuario);
             }
-            container.SaveChanges();
-            result = DBOperationResult.AddResult.Success;
+            try
+            {
+                container.SaveChanges();
+                result = DBOperationResult.AddResult.Success;
+            }
+            catch (EntityException)
+            {
+                result = DBOperationResult.AddResult.SQLError;
+            }
+
 
             return result;
         }
@@ -125,17 +135,32 @@ namespace Pacman_Sevices
         public DBOperationResult.AddResult SerachUserInDB(IRegisterService.Jugador jugador)
         {
             DBOperationResult.AddResult result;
-
+            try
+            {
+                CheckObjectJugador(jugador);
+            }
+            catch (FormatException)
+            {
+                result = DBOperationResult.AddResult.NullObject;
+                return result;
+            }
             ModelContainer container = new ModelContainer();
             ICollection<Jugador> Jugadores = new List<Jugador>();
-            foreach (var player in container.JugadorSet)
+            try
             {
-                if (player.Usuario.Username == jugador.Username || player.Correo == jugador.Correo)
+                foreach (var player in container.JugadorSet)
                 {
-                    Jugadores.Add(player);
+                    if (player.Usuario.Username == jugador.Username || player.Correo == jugador.Correo)
+                    {
+                        Jugadores.Add(player);
+                    }
                 }
             }
-
+            catch (EntityException)
+            {
+                result = DBOperationResult.AddResult.SQLError;
+                return result;
+            }
             if (Jugadores.Any())
             {
                 result = DBOperationResult.AddResult.ExistingRecord;
