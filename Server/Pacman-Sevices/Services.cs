@@ -419,6 +419,10 @@ namespace Pacman_Sevices
     {
         List<ServerUser> users = new List<ServerUser>();
         int nextId = 1;
+
+        /// <summary>Agrega un nuevo jugador a la sala de chat</summary>
+        /// <param name="name">El nombre de usuario del jugador.</param>
+        /// <returns>El ID del jugador</returns>
         public int Connect(String name)
         {
             ServerUser user = new ServerUser()
@@ -431,6 +435,8 @@ namespace Pacman_Sevices
             users.Add(user);
             return user.ID;
         }
+        /// <summary>Quita al usuario de lista de usuarios</summary>
+        /// <param name="id"">El ID del usuario.</param>
         public void Disconnect(int id)
         {
             var user = users.FirstOrDefault(i => i.ID == id);
@@ -440,6 +446,11 @@ namespace Pacman_Sevices
                 SendMsg(": " + user.Name + " disconnected from chat!", 0);
             }
         }
+        /// <summary>Registra una nueva puntuación para el usuario</summary>
+        /// <param name="message">El mensaje del jugador en el chat.</param>
+        /// <param name="id">El id del jugador en el chat.</param>
+        /// <returns>El resultado de la operación</returns>
+        /// <exception cref="NullReferenceException">En caso de que un jugador tenga un valor nulo en la lista</exception>
         public void SendMsg(String message, int id)
         {
             foreach (var item in users)
