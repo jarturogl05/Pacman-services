@@ -365,14 +365,7 @@ namespace Pacman_Sevices
         public int GetScore(IScoreService.User user)
         {
             ModelContainer container = new ModelContainer();
-            var jugador = new Jugador();
-            foreach (var player in container.JugadorSet)
-            {
-                if (player.Nombre == user.Nombre)
-                {
-                    jugador = player;
-                }
-            }
+            var jugador = container.JugadorSet.Where(x => x.Usuario.Username == user.Nombre).FirstOrDefault();
             int maxPoint = jugador.PuntuaciónAlta;
             return maxPoint;
         }
@@ -380,19 +373,19 @@ namespace Pacman_Sevices
         public bool SetScore(IScoreService.User user, double score)
         {
             ModelContainer container = new ModelContainer();
-            ICollection<Jugador> jugadores = new List<Jugador>();
-            foreach (var player in container.JugadorSet)
+            var jugador = container.JugadorSet.Where(x => x.Usuario.Username == user.Nombre).FirstOrDefault();
+            bool result = false;
+            if (GetScore(user) < user.Puntuación && jugador != null)
             {
-                if (player.Nombre == user.Nombre)
+                jugador.PuntuaciónAlta = user.Puntuación;
+                using (container)
                 {
-                    if (player.PuntuaciónAlta < user.Puntuación)
-                    {
-                        player.PuntuaciónAlta = user.Puntuación;
-                    }
+                    container.Entry(jugador).State = System.Data.Entity.EntityState.Modified;
+                    container.SaveChanges();
                 }
+                result = true;
             }
-            container.SaveChanges();
-            return true;
+            return result;
         }
     }
 }
