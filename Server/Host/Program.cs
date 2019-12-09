@@ -5,7 +5,9 @@ using Pacman_Sevices;
 
 namespace Host
 {
-   public static class Program
+    /// <summary>Se inicia el servidor</summary>
+    
+    public static class Program
     {
         static void Main(string[] args)
         {

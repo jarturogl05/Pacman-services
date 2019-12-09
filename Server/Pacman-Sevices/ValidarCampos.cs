@@ -3,6 +3,7 @@
 
 namespace Pacman_Sevices
 {
+    /// <summary>Clase que tiene como funcionalidad validar la estructura de los datos introducidos por el usuario</summary>
     public class ValidarCampos
     {
         public enum ResultadosValidacion
@@ -34,7 +35,9 @@ namespace Pacman_Sevices
             return ResultadosValidacion.ContraseñaInválida;
 
         }
-
+        /// <summary>  Validar que el correo tenga una estructura válida</summary>
+        /// <param name="correo">el correo.</param>
+        /// <returns>Resultado de la validación</returns>
         public ResultadosValidacion ValidarCorreo(string correo)
         {
             string patrón = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";

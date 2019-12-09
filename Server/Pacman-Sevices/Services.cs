@@ -62,9 +62,18 @@ namespace Pacman_Sevices
     }
 
 
-
+    /// <summary>Clase parcial que contiene los métodos para realizar un registro</summary>
+    /// <seealso cref="Pacman_Sevices-services.IRegisterService" />
     public partial class Services : IRegisterService
     {
+
+        /// <summary>Revisa el objeto jugador en busca de inconsistencias.</summary>
+        /// <param name="jugador">Un jugador.</param>
+        /// <returns>El resultado de la validacion</returns>
+        /// <exception cref="FormatException">
+        /// El objeto contiene campos vacios
+        /// El correo no cumple con los criterios: " + jugador.Correo
+        /// </exception>
         private void CheckObjectJugador(IRegisterService.Jugador jugador)
         {
             ValidarCampos validarCampos = new ValidarCampos();
@@ -78,6 +87,11 @@ namespace Pacman_Sevices
                 throw new FormatException("El correo no tiene un formato válido" + jugador.Correo);
             }
         }
+
+        /// <summary>Añade un usuario a la base de datos.</summary>
+        /// <param name="jugador">El jugador.</param>
+        /// <returns>El resultado de la operacion</returns>
+        /// <exception cref="EntityException">En caso de que ocurra un error en la base de datos</exception>
 
         public DBOperationResult.AddResult AddUser(IRegisterService.Jugador jugador)
         {
@@ -132,6 +146,10 @@ namespace Pacman_Sevices
             return result;
         }
 
+        /// <summary>Busca un jugador en la base de datos.</summary>
+        /// <param name="jugador">El jugador.</param>
+        /// <returns>El resultado de la operacion</returns>
+        /// <exception cref="EntityException">En caso de que ocurra un error en la base de datos</exception>
         public DBOperationResult.AddResult SerachUserInDB(IRegisterService.Jugador jugador)
         {
             DBOperationResult.AddResult result;
@@ -176,9 +194,16 @@ namespace Pacman_Sevices
 
 
 
-
+    /// <summary>Clase parcial que contiene los métodos para realizar el inicio se sesión</summary>
+    /// <seealso cref="Pacman_Sevices-services.ILoginService" />
     public partial class Services : ILoginService
     {
+        /// <summary>Revisa el objeto usuario en busca de inconsistencias.</summary>
+        /// <param name="usuario">Un usuario.</param>
+        /// <returns>El resultado de la validacion</returns>
+        /// <exception cref="FormatException">
+        /// El objeto contiene campos vacios
+        /// </exception>
         private void CheckObjectUser(ILoginService.Usuario usuario)
         {
             if (usuario.Username == string.Empty || usuario.Password == string.Empty)
@@ -187,6 +212,10 @@ namespace Pacman_Sevices
             }
         }
 
+        /// <summary>Busca el correo del usuario en la base de datos.</summary>
+        /// <param name="usuario">El usuario.</param>
+        /// <returns>El correo del usuario/returns>
+        /// <exception cref="EntityException">En caso de que ocurra un error en la base de datos</exception>
         public string GetEmail(ILoginService.Usuario usuario)
         {
             string email;
@@ -211,6 +240,10 @@ namespace Pacman_Sevices
             return email;
         }
 
+        /// <summary>Busca si el usuario está en la base de datos.</summary>
+        /// <param name="usuario">El usuario.</param>
+        /// <returns>El resultado de la operacion</returns>
+        /// <exception cref="EntityException">En caso de que ocurra un error en la base de datos</exception>
         public DBOperationResult.AddResult ValidateUser(ILoginService.Usuario usuario)
         {
             DBOperationResult.AddResult result;
@@ -263,10 +296,16 @@ namespace Pacman_Sevices
 
 
 
-
+    /// <summary>Clase parcial que contiene los métodos para realizar la confirmación del jugador</summary>
+    /// <seealso cref="Pacman_Sevices-services.IConfirmationServices" />
 
     public partial class Services : IConfirmationServices
     {
+
+        /// <summary>Cambia el estado de confirmación de un jugador a Verdadero.</summary>
+        /// <param name="jugador">El jugador.</param>
+        /// <returns>El resultado de la operacion</returns>
+        /// <exception cref="EntityException">En caso de que ocurra un error en la base de datos</exception>
         public DBOperationResult.AddResult ChangeConfirmationStatus(IConfirmationServices.Jugador jugador)
         {
             DBOperationResult.AddResult result;
@@ -290,7 +329,7 @@ namespace Pacman_Sevices
                         result = DBOperationResult.AddResult.WrongCredentials;
                     }
                 }
-               
+
             }
             catch (EntityException)
             {
@@ -299,6 +338,10 @@ namespace Pacman_Sevices
             return result;
         }
 
+        /// <summary>Genera un nuevo código para el jugador</summary>
+        /// <param name="jugador">El jugador.</param>
+        /// <returns>El resultado de la operacion</returns>
+        /// <exception cref="EntityException">En caso de que ocurra un error en la base de datos</exception>
         public DBOperationResult.AddResult GenerateNewCode(IConfirmationServices.Jugador jugador)
         {
             DBOperationResult.AddResult result;
@@ -326,7 +369,10 @@ namespace Pacman_Sevices
         }
 
 
-
+        /// <summary>Envía un correo via SMTP</summary>
+        /// <param name="jugador">El jugador.</param>
+        /// <returns>El resultado de la operacion</returns>
+        /// <exception cref="SmtpException">En caso de que no se pueda enviar el correo/exception>
         public int SendEmail(IConfirmationServices.Jugador jugador)
         {
             int result;
@@ -357,31 +403,60 @@ namespace Pacman_Sevices
             return result;
         }
     }
+
+    /// <summary>Clase parcial que contiene los métodos para realizar la confirmación del jugador</summary>
+    /// <seealso cref="Pacman_Sevices-services.IScoreService" />
+
     public partial class Services : IScoreService
     {
+        /// <summary>obtiene el score de un usuario</summary>
+        /// <param name="user">El jugador.</param>
+        /// <returns>La puntuación</returns>
+        /// <exception cref="EntityException">En caso de que ocurra un error en la base de datos</exception>
         public int GetScore(IScoreService.User user)
         {
-            ModelContainer container = new ModelContainer();
-            var jugador = container.JugadorSet.Where(x => x.Usuario.Username == user.Nombre).FirstOrDefault();
-            int maxPoint = jugador.PuntuaciónAlta;
+            int maxPoint = 0;
+            try
+            {
+                ModelContainer container = new ModelContainer();
+                var jugador = container.JugadorSet.Where(x => x.Usuario.Username == user.Nombre).FirstOrDefault();
+                maxPoint = jugador.PuntuaciónAlta;
+            }
+            catch (EntityException)
+            {
+                maxPoint = 0;
+            }
+
             return maxPoint;
         }
 
+        /// <summary>Registra una nueva puntuación para el usuario</summary>
+        /// <param name="user">El jugador.</param>
+        /// <returns>El resultado de la operación</returns>
+        /// <exception cref="EntityException">En caso de que ocurra un error en la base de datos</exception>
         public bool SetScore(IScoreService.User user, double score)
         {
-            ModelContainer container = new ModelContainer();
-            var jugador = container.JugadorSet.Where(x => x.Usuario.Username == user.Nombre).FirstOrDefault();
             bool result = false;
-            if (GetScore(user) < user.Puntuación && jugador != null)
+            try
             {
-                jugador.PuntuaciónAlta = user.Puntuación;
-                using (container)
+                ModelContainer container = new ModelContainer();
+                var jugador = container.JugadorSet.Where(x => x.Usuario.Username == user.Nombre).FirstOrDefault();
+                if (GetScore(user) < user.Puntuación && jugador != null)
                 {
-                    container.Entry(jugador).State = System.Data.Entity.EntityState.Modified;
-                    container.SaveChanges();
+                    jugador.PuntuaciónAlta = user.Puntuación;
+                    using (container)
+                    {
+                        container.Entry(jugador).State = System.Data.Entity.EntityState.Modified;
+                        container.SaveChanges();
+                    }
+                    result = true;
                 }
-                result = true;
             }
+            catch (EntityException)
+            {
+                result = false;
+            }
+ 
             return result;
         }
     }
