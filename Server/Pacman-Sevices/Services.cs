@@ -360,4 +360,39 @@ namespace Pacman_Sevices
             return result;
         }
     }
+    public partial class Services : IScoreService
+    {
+        public int GetScore(IScoreService.User user)
+        {
+            ModelContainer container = new ModelContainer();
+            var jugador = new Jugador();
+            foreach (var player in container.JugadorSet)
+            {
+                if (player.Nombre == user.Nombre)
+                {
+                    jugador = player;
+                }
+            }
+            int maxPoint = jugador.PuntuaciónAlta;
+            return maxPoint;
+        }
+
+        public bool SetScore(IScoreService.User user, double score)
+        {
+            ModelContainer container = new ModelContainer();
+            ICollection<Jugador> jugadores = new List<Jugador>();
+            foreach (var player in container.JugadorSet)
+            {
+                if (player.Nombre == user.Nombre)
+                {
+                    if (player.PuntuaciónAlta < user.Puntuación)
+                    {
+                        player.PuntuaciónAlta = user.Puntuación;
+                    }
+                }
+            }
+            container.SaveChanges();
+            return true;
+        }
+    }
 }
