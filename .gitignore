@@ -18,3 +18,11 @@ Server/Host/obj/Release/
 Server/Pacman-Sevices/bin/Release/
 
 Server/Pacman-Sevices/obj/Release/
+
+Server/.vs/Pacman-Sevices/v16/TestStore/0/000-0000.testlog
+
+Server/.vs/Pacman-Sevices/v16/TestStore/0/
+
+Server/Pacman-SevicesTests/bin/Debug/
+
+Server/Pacman-SevicesTests/obj/Debug/
