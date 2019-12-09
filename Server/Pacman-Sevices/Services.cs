@@ -6,7 +6,8 @@ using System.Data.Entity.Core;
 using System.Linq;
 using System.Net.Mail;
 using System.ServiceModel;
-using System.Text;
+using System.Configuration;
+
 
 namespace Pacman_Sevices
 {
@@ -182,7 +183,7 @@ namespace Pacman_Sevices
         {
             ValidarCampos validarCampos = new ValidarCampos();
 
-            if (usuario.Username == string.Empty || usuario.Password == string.Empty )
+            if (usuario.Username == string.Empty || usuario.Password == string.Empty)
             {
                 throw new FormatException("El jugador tiene campos vacios");
             }
@@ -284,7 +285,7 @@ namespace Pacman_Sevices
                         jgd.Usuario.Confirmación = "True";
                         context.UsuarioSet.Attach(jgd.Usuario);
                         context.Entry(jgd.Usuario).Property("Confirmación").IsModified = true;
-                        context.SaveChanges();                     
+                        context.SaveChanges();
                     }
                 }
                 result = DBOperationResult.AddResult.Success;
@@ -293,7 +294,7 @@ namespace Pacman_Sevices
             {
                 result = DBOperationResult.AddResult.SQLError;
             }
-            return result; 
+            return result;
         }
 
         public DBOperationResult.AddResult GenerateNewCode(IConfirmationServices.Jugador jugador)
@@ -329,7 +330,7 @@ namespace Pacman_Sevices
             int result;
             System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
             msg.To.Add(jugador.Correo);
-            msg.From = new MailAddress(ConfigurationSettings.AppSettings["pacmanEmail"], "Pacman rey de la colina");
+            msg.From = new MailAddress(ConfigurationManager.AppSettings["pacmanEmail"], "Pacman rey de la colina");
             msg.Subject = "Código de confirmación";
             msg.SubjectEncoding = System.Text.Encoding.UTF8;
             msg.Body = jugador.Código;
@@ -337,7 +338,7 @@ namespace Pacman_Sevices
             msg.IsBodyHtml = false;
             SmtpClient client = new SmtpClient();
             client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential(ConfigurationSettings.AppSettings["pacmanEmail"], ConfigurationSettings.AppSettings["pacmanEmailPassword"]);
+            client.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["pacmanEmail"], ConfigurationManager.AppSettings["pacmanEmailPassword"]);
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
