@@ -6,7 +6,7 @@ using System.Data.Entity.Core;
 using System.Linq;
 using System.Net.Mail;
 using System.ServiceModel;
-using System.Configuration;
+
 
 
 namespace Pacman_Sevices
@@ -181,13 +181,10 @@ namespace Pacman_Sevices
     {
         private void CheckObjectUser(ILoginService.Usuario usuario)
         {
-            ValidarCampos validarCampos = new ValidarCampos();
-
             if (usuario.Username == string.Empty || usuario.Password == string.Empty)
             {
                 throw new FormatException("El jugador tiene campos vacios");
             }
-
         }
 
         public string GetEmail(ILoginService.Usuario usuario)
