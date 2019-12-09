@@ -14,14 +14,13 @@ namespace Pacman_Sevices
         bool SetScore(User user, double score);
 
         [OperationContract]
-        Double GetScore(User user);
-
+        int GetScore(User user);
 
         [DataContract]
         public class User
         {
             private String username;
-            private Double puntuación;
+            private int puntuación;
 
 
 
@@ -30,7 +29,7 @@ namespace Pacman_Sevices
 
 
             [DataMember]
-            public Double Puntuación { get { return puntuación; } set { puntuación = value; } }
+            public int Puntuación { get { return puntuación; } set { puntuación = value; } }
 
 
         }
