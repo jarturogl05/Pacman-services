@@ -13,10 +13,10 @@ namespace Pacman_Sevices
         int SendEmail(Jugador jugador);
 
         [OperationContract]
-        int GenerateNewCode(Jugador jugador);
+        DBOperationResult.AddResult GenerateNewCode(Jugador jugador);
 
         [OperationContract]
-        int ChangeConfirmationStatus(Jugador jugador);
+        DBOperationResult.AddResult ChangeConfirmationStatus(Jugador jugador);
 
         [DataContract]
         public class Jugador

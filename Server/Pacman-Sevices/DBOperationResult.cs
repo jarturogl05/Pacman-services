@@ -10,7 +10,8 @@ namespace Pacman_Sevices
             UnknowFail,
             ExistingRecord,
             WrongCredentials,
-            ConfirmationIsFalse
+            ConfirmationIsFalse,
+            SQLError
         }
     }
 }
