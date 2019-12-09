@@ -286,9 +286,14 @@ namespace Pacman_Sevices
                         context.UsuarioSet.Attach(jgd.Usuario);
                         context.Entry(jgd.Usuario).Property("Confirmación").IsModified = true;
                         context.SaveChanges();
+                        result = DBOperationResult.AddResult.Success;
+                    }
+                    else
+                    {
+                        result = DBOperationResult.AddResult.WrongCredentials;
                     }
                 }
-                result = DBOperationResult.AddResult.Success;
+               
             }
             catch (EntityException)
             {
